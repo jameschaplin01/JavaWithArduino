@@ -10,7 +10,7 @@ import java.net.UnknownHostException;
  * Needs to use strings to work with Leibinger
  */
 
-public class Client {
+public class ClientSendTempsDynamically {
 
     // we initialize our socket (tunnel)
     // and our input reader and output stream
@@ -30,7 +30,7 @@ public class Client {
 
     // constructor that takes the ip address and the port
     // also receives an instance of the arduino connector
-    public Client(String address, int port, ConnectArduino connectArduino) throws IOException {
+    public ClientSendTempsDynamically(String address, int port, ConnectArduino connectArduino) throws IOException {
         this.connectArduino = connectArduino;
         // try to establish a connection
         try {
@@ -77,6 +77,6 @@ public class Client {
 
     public static void main(String[] args) throws IOException {
         ConnectArduino connectArduino = new ConnectArduino();
-        Client client = new Client("127.0.0.1", 6666, connectArduino);
+        ClientSendTempsDynamically client = new ClientSendTempsDynamically("127.0.0.1", 6666, connectArduino);
     }
 }
