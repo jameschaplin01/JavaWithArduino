@@ -5,10 +5,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
- * Basic client server program
- * To use first start main.Server
- * Then start client
+ * THIS IS THE APP WE WILL USE FOR TESTS
  * Sends new visco value to printer only if temperature changes
+ * Needs to use strings to work with Leibinger
  */
 
 public class Client {
@@ -18,24 +17,29 @@ public class Client {
     // we will take the input from the user
     // and send it to the socket using output stream
     private Socket socket;
-    private DataOutputStream out;
     private ConnectArduino connectArduino;
 
     // try using string
+    // reads from printer (Server)
+    private BufferedReader br;
+    // writes to printer (Server)
+    private PrintWriter pw;
 
 
     String currentSetpoint = "SV 500";
 
     // constructor that takes the ip address and the port
     // also receives an instance of the arduino connector
-    public Client(String address, int port, ConnectArduino connectArduino) {
+    public Client(String address, int port, ConnectArduino connectArduino) throws IOException {
         this.connectArduino = connectArduino;
         // try to establish a connection
         try {
             // create a socket
             socket = new Socket(address, port);
-            // Output reader that (used to send data to server)
-            out = new DataOutputStream(socket.getOutputStream());
+            // to use STRINGS to read from printer
+            br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            // to use string to write to printer
+            pw = new PrintWriter(socket.getOutputStream(), true);
 
         }
         catch (UnknownHostException u) {
@@ -47,29 +51,23 @@ public class Client {
 
         // string to be used to add temp from Arduino
         String viscoSetPoint = "";
+        String test = "test";
 
         // reads temp from arduino and sends corresponding visco correction to server (printer)
         while (!viscoSetPoint.equals("Stop")) {
-            try {
-                viscoSetPoint = (String) connectArduino.getTemp();
-                // check to see if a new visco setpoint needs to be sent to the server (printer)
+            viscoSetPoint = connectArduino.getTemp();
+            // check to see if a new visco setpoint needs to be sent to the server (printer)
 
-                    if(!viscoSetPoint.equals(currentSetpoint)) {
-                        out.writeUTF(viscoSetPoint); // writes to output stream (main.Server)
-                        System.out.println("new setpoint sent to printer"+viscoSetPoint);
-                        currentSetpoint = viscoSetPoint;
-                    }
-            }
-            catch (IOException i) {
-                System.out.println(i);
+            if(!viscoSetPoint.equals(currentSetpoint)) {
+                pw.println(viscoSetPoint);  // try when connected to printer
+                currentSetpoint = viscoSetPoint;
             }
         }
 
         // close the connection
         try
         {
-            System.out.println("Closing client socket ");
-            out.close();
+           // out.close();
             socket.close();
         }
         catch (IOException i) {

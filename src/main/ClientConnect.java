@@ -7,7 +7,9 @@ import java.util.Properties;
 import java.util.Scanner;
 
 /**
+ * Just use to test sending an receiving parameters to printer
  * Uses strings to write to printer - works on printer but needs to connect to arduino and send viso values
+ *
  */
 
 public class ClientConnect {
@@ -51,7 +53,6 @@ public class ClientConnect {
 
             command = scanner.nextLine();
 
-            System.out.println(command + " sent to printer!");
             // writes a string to server
             pw.println(command);
 
@@ -61,12 +62,10 @@ public class ClientConnect {
             // Assuming socket is connected and not null
 
             if(socket1 != null){
-                System.out.println("does this run");
                 // only works when there is a reply!!!! check that the message sent is expecting a response or don't send
                 String input = br.readLine();
                 System.out.println(input);
                 if(socket1.getInputStream().available() > 0){
-                    System.out.println("this runs");
                     byte[] buffer;
                     buffer = new byte[socket1.getInputStream().available()];
                     socket1.getInputStream().read(buffer);
