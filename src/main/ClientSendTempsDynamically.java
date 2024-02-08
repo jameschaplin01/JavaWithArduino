@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
- * Prod app
+ * Prod app check
  */
 
 public class ClientSendTempsDynamically {
