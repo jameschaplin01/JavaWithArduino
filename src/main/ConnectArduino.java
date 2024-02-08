@@ -22,7 +22,7 @@ public class ConnectArduino {
         // add properties file to instance
         // add reader to get data from file
         p = new Properties();
-        is = new FileInputStream("C:\\workspace\\JavaWithArduino\\resources\\inks.properties");
+        is = new FileInputStream("C:\\workspace SICPA\\JavaWithArduino\\resources\\inks.properties");
         // loads data into properties object
         p.load(is);
 

@@ -5,28 +5,20 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
- * THIS IS THE APP WE WILL USE FOR TESTS
- * Sends new visco value to printer only if temperature changes
- * Needs to use strings to work with Leibinger
+ * Prod app
  */
 
 public class ClientSendTempsDynamically {
 
-    // we initialize our socket (tunnel)
-    // and our input reader and output stream
-    // we will take the input from the user
-    // and send it to the socket using output stream
     private Socket socket;
     private ConnectArduino connectArduino;
-
-    // try using string
     // reads from printer (Server)
     private BufferedReader br;
     // writes to printer (Server)
     private PrintWriter pw;
 
-
-    String currentSetpoint = "SV 500";
+    String viscoSetPoint = "";
+    String currentSetpoint = "SV6000";
 
     // constructor that takes the ip address and the port
     // also receives an instance of the arduino connector
@@ -49,29 +41,16 @@ public class ClientSendTempsDynamically {
             System.out.println(i);
         }
 
-        // string to be used to add temp from Arduino
-        String viscoSetPoint = "";
-        String test = "test";
-
         // reads temp from arduino and sends corresponding visco correction to server (printer)
-        while (!viscoSetPoint.equals("Stop")) {
+        //   while (!viscoSetPoint.equals("Stop")) {
+            while (true) {
             viscoSetPoint = connectArduino.getTemp();
             // check to see if a new visco setpoint needs to be sent to the server (printer)
-
             if(!viscoSetPoint.equals(currentSetpoint)) {
-                pw.println(viscoSetPoint);  // try when connected to printer
+                pw.println(viscoSetPoint);
                 currentSetpoint = viscoSetPoint;
             }
-        }
 
-        // close the connection
-        try
-        {
-           // out.close();
-            socket.close();
-        }
-        catch (IOException i) {
-            System.out.println(i);
         }
     }
 
