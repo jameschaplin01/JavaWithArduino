@@ -21,5 +21,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="net.enilink.komma:org.slf4j.logback:1.7.4" level="project" />
+    <orderEntry type="library" name="projectlombok.lombok" level="project" />
   </component>
 </module>

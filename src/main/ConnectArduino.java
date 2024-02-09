@@ -11,7 +11,7 @@ public class ConnectArduino {
     SerialPort sp;
     String viscoSetpoint = "";
     String setPoint = "";
-    Double tempFloat = 20.00;
+    Double tempFloat = 20.0;
     Properties p;
     InputStream is;
 
@@ -22,7 +22,7 @@ public class ConnectArduino {
         // add properties file to instance
         // add reader to get data from file
         p = new Properties();
-        is = new FileInputStream("C:\\workspace SICPA\\JavaWithArduino\\resources\\inks.properties");
+        is = new FileInputStream("C:\\workspace\\JavaWithArduino\\resources\\inks.properties");
         // loads data into properties object
         p.load(is);
 
@@ -49,7 +49,7 @@ public class ConnectArduino {
                 String S = new String(readBuffer, "UTF-8");
                 tempFloat = Double.parseDouble(S);
                 setPoint = checkSetPoint(tempFloat);
-            System.out.println("setpoint is: "+ setPoint);
+                System.out.println("setpoint is: "+ setPoint);
                 System.out.println("Temperature: " +tempFloat);
         }
         catch (Exception e)
