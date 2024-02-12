@@ -17,8 +17,8 @@ public class ClientTestCommands {
         Socket socket;
         String command = "";
 
-        socket = new Socket("127.0.0.1", 6666);
-        // socket1 = new Socket("192.168.1.11", 3000);
+        // socket = new Socket("127.0.0.1", 6666);
+         socket = new Socket("192.168.1.11", 3000);
 
         // reads from printer (Server)
         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));

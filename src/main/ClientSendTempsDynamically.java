@@ -49,6 +49,9 @@ public class ClientSendTempsDynamically {
             System.out.println(i);
         }
 
+        // get the static values only needed on startup
+        // version history etc
+
         // reads temp from arduino and sends corresponding visco correction to server (printer)
         //   while (!viscoSetPoint.equals("Stop")) {
             while (true) {
@@ -98,5 +101,6 @@ public class ClientSendTempsDynamically {
     public static void main(String[] args) throws IOException {
         ConnectArduino connectArduino = new ConnectArduino();
         ClientSendTempsDynamically client = new ClientSendTempsDynamically("127.0.0.1", 6666, connectArduino);
+       // ClientSendTempsDynamically client = new ClientSendTempsDynamically("192.168.1.11", 3000, connectArduino);
     }
 }
